@@ -23,7 +23,7 @@ namespace WebApi.AddControllers
         private readonly BookStoreDbContext _context;
         public IMapper _mapper;
 
-        public BookControllers(BookStoreDbContext context,IMapper mapper)
+        public BookControllers(BookStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -32,7 +32,7 @@ namespace WebApi.AddControllers
         [HttpGet]
         public IActionResult GetBooks()
         {
-            GetBooksQuery query = new GetBooksQuery(_context,_mapper);
+            GetBooksQuery query = new GetBooksQuery(_context, _mapper);
             var result = query.Handle();
             return Ok(result);
         }
@@ -40,7 +40,7 @@ namespace WebApi.AddControllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            GetBookDetailQuery query = new GetBookDetailQuery(_context,_mapper);
+            GetBookDetailQuery query = new GetBookDetailQuery(_context, _mapper);
             try
             {
                 query.BookId = id;
@@ -53,7 +53,7 @@ namespace WebApi.AddControllers
 
                 return BadRequest(ex.Message);
             }
-            
+
 
         }
 
@@ -61,28 +61,13 @@ namespace WebApi.AddControllers
 
         public IActionResult AddBook([FromBody] CreateBookModel book)
         {
+            
+            CreateBookCommand command = new CreateBookCommand(_context, _mapper);
 
-            CreateBookCommand command = new CreateBookCommand(_context,_mapper);
-            try
-            {
-                command.Model = book;
-                CreateBookCommandValidator validationRules = new CreateBookCommandValidator();
-                validationRules.ValidateAndThrow(command);
-                command.Handle();
-                // if (!result.IsValid)
-                // {
-                //     foreach (var item in result.Errors)
-                //     {
-                //         Console.WriteLine("Property : "+item.PropertyName+ " Error message : "+item.ErrorMessage);
-                //     }
-                // }else
-                // command.Handle();
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
+            command.Model = book;
+            CreateBookCommandValidator validationRules = new CreateBookCommandValidator();
+            validationRules.ValidateAndThrow(command);
+            command.Handle();
             return Ok();
         }
 
@@ -119,7 +104,7 @@ namespace WebApi.AddControllers
             }
             catch (Exception ex)
             {
-                
+
                 return BadRequest(ex.Message);
             }
 

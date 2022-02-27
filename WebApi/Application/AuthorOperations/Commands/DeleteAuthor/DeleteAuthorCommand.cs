@@ -9,11 +9,11 @@ namespace WebApi.Application.AuthorOperations.Commands.DeleteAuthor
     {
 
         public int AuthorId{get;set;}
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
 
         public IMapper _mapper;
 
-         public DeleteAuthorCommand(BookStoreDbContext dbContext,IMapper mapper)  
+         public DeleteAuthorCommand(IBookStoreDbContext dbContext,IMapper mapper)  
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -29,7 +29,7 @@ namespace WebApi.Application.AuthorOperations.Commands.DeleteAuthor
                 throw new InvalidOperationException("The author whose book is published cannot be deleted.");
             }
 
-            _dbContext.Remove(author);
+            _dbContext.Authors.Remove(author);
             _dbContext.SaveChanges();
 
         }

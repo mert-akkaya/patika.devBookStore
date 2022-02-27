@@ -15,8 +15,8 @@ namespace WebApi.BookOperations.Queries.GetBookDetail
         public int BookId { get; set; }
 
         public IMapper _mapper;
-        private readonly BookStoreDbContext _dbContext;
-        public GetBookDetailQuery(BookStoreDbContext dbContext,IMapper mapper)
+        private readonly IBookStoreDbContext _dbContext;
+        public GetBookDetailQuery(IBookStoreDbContext dbContext,IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;

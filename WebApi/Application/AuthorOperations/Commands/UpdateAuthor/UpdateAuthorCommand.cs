@@ -11,11 +11,11 @@ namespace WebApi.Application.AuthorOperations.Commands.UpdateAuthor
 
         public int AuthorId { get; set; }
         public UpdateAuthorModel Model { get; set; }
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
 
         public IMapper _mapper;
 
-         public UpdateAuthorCommand(BookStoreDbContext dbContext,IMapper mapper)  
+         public UpdateAuthorCommand(IBookStoreDbContext dbContext,IMapper mapper)  
         {
             _dbContext = dbContext;
             _mapper = mapper;

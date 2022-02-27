@@ -10,11 +10,11 @@ namespace WebApi.Application.AuthorOperations.Commands.CreateAuthor
     {
 
         public CreateAuthorModel Model{get;set;}
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
 
         public IMapper _mapper;
 
-        public CreateAuthorCommand(BookStoreDbContext dbContext,IMapper mapper)  
+        public CreateAuthorCommand(IBookStoreDbContext dbContext,IMapper mapper)  
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -29,7 +29,7 @@ namespace WebApi.Application.AuthorOperations.Commands.CreateAuthor
 
             author = _mapper.Map<Author>(Model);
 
-            _dbContext.Add(author);
+            _dbContext.Authors.Add(author);
             _dbContext.SaveChanges();
 
         }

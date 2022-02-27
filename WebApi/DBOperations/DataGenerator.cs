@@ -62,6 +62,19 @@ namespace WebApi.DBOperations
                     }
                 );
 
+                context.Authors.AddRange(
+                    new Author{
+                        Name="Mert",
+                        Surname="Akkaya",
+                        Birthday= new System.DateTime(2000,11,21)
+                    },
+                    new Author{
+                        Name="Demo",
+                        Surname="DEmo",
+                        Birthday= new System.DateTime(2000,05,02)
+                    }
+                );
+
                 context.SaveChanges();
             }
         }
